@@ -149,7 +149,7 @@ import {setToken} from '../utils/auth.js'
 
             },
             loginEnterFun: function(e){
-                var keyCode = window.event? e.keyCode:e.which;
+                var keyCode = e.keyCode || e.which;
                 // console.log('回车登录',keyCode,e);
                 if(keyCode == 13 ){
                     this.gotoHome();
@@ -170,7 +170,7 @@ import {setToken} from '../utils/auth.js'
       
             },
             registerEnterFun: function(e){
-                var keyCode = window.event? e.keyCode:e.which;
+                var keyCode = e.keyCode || e.which;
                 // console.log('回车注册',keyCode,e);
                 if(keyCode == 13 ){
                     this.newRegister();
@@ -244,6 +244,8 @@ import {setToken} from '../utils/auth.js'
     background: #fff;
     padding:40px;
     max-width:320px;
+    border-radius: 4px; /* 设置边框圆角 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 设置阴影 */
     margin:0 auto;
 }
 .loginBox{
@@ -358,5 +360,15 @@ import {setToken} from '../utils/auth.js'
 }
 .registerSuc .sucContent  .el-icon-close{
     fong-size: 13px;
+}
+body {
+  background: url('../../static/img/gaoda.png') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.container {
+    opacity: 0.9;
 }
 </style>

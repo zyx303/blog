@@ -1,7 +1,7 @@
 <!-- 文章列表 -->
 <template>
     <el-row class="sharelistBox">
-        <el-col :span="24" class="s-item tcommonBox" v-for="(item,index) in articleList" :key="'article'+index">
+        <el-col :span="24" class="s-item tcommonBox trans" v-for="(item,index) in articleList" :key="'article'+index">
             <span class="s-round-date">
                 <span class="month" v-html="showInitDate(item.createTime,'month')+'月'"></span>
                 <span class="day" v-html="showInitDate(item.createTime,'date')"></span>
@@ -35,7 +35,6 @@
                     阅读全文>>
                 </a>
             </div>
-
         </el-col>
          <el-col class="viewmore">
             <a v-show="hasMore" class="tcolors-bg" href="javascript:void(0);" @click="addMoreFun">点击加载更多</a>
@@ -150,8 +149,25 @@ import {articleList} from '../api/article'
         font-size: 15px;
     }
 
+    .trans {
+        position: relative;
+    }
 
-    /*.sharelistBox .viewmore a:hover,.s-item .viewdetail a:hover{
+    .trans section {
+        transition: all 0.2s linear;
+        position: relative;
+        background: #fff;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+
+    .trans:hover {
+        transform: translate(0, -2px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .sharelistBox .viewmore a:hover,.s-item .viewdetail a:hover{
         background: #48456C;
-    }*/
+    }
 </style>
