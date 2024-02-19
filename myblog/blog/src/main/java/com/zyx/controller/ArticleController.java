@@ -31,9 +31,9 @@ public class ArticleController {
     }
 
     @GetMapping("/articleList")
-    public ResponseResult articleList(Integer pageNum, Integer pageSize, Integer categoryId){
+    public ResponseResult articleList(Integer pageNum, Integer pageSize, Integer categoryId,String keyword){
         //查询文章
-        ResponseResult result =  articleService.articleList(pageNum,pageSize,categoryId);
+        ResponseResult result =  articleService.articleList(pageNum,pageSize,categoryId,keyword);
         return result;
     }
 
@@ -42,4 +42,5 @@ public class ArticleController {
         //查询文章
         return articleService.getArticleById(id);
     }
+
 }

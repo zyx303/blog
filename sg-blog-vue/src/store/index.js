@@ -10,7 +10,7 @@ export const state = {
   themeObj: 0,//主题
   keywords:'',//关键词
   errorImg: 'this.onerror=null;this.src="' + require('../../static/img/tou.jpg') + '"',
-  baseURL:'http://47.98.62.200:7777/'
+  baseURL:'http://localhost:7777/'
 }
 
 export default new Vuex.Store({

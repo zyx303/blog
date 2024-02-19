@@ -14,7 +14,10 @@
 						</el-submenu>
 						<!-- <el-menu-item index="/Reward"><i class="fa fa-wa fa-cny"></i> 赞赏</el-menu-item> -->
 						<el-menu-item index="/Friendslink"><i class="fa fa-wa fa-users"></i>一些网站</el-menu-item>
-
+						<!-- 搜索 -->
+						<el-input v-model="input" class="pcsearchbox" placeholder="请输入关键字" @keyup.enter.native="searchChangeFun">
+							<!-- <i slot="prefix" class="el-input__icon el-icon-search pcsearchicon"></i> -->
+						</el-input>
 						<div class="userInfo">
 							<div v-show="!haslogin" class="nologin">
 								<a href="javascript:void(0);" @click="logoinFun(1)">登录&nbsp;</a>|<a href="javascript:void(0);" @click="logoinFun(0)">&nbsp;注册</a>
@@ -86,6 +89,9 @@ export default {
 			if (this.input == '') {
 				this.$store.state.keywords = '';
 				this.$router.push({path:'/'});
+			}else{
+				this.$store.state.keywords = this.input;
+				this.$router.push({path:'/Share?keywords='+this.input});
 			}
 		},
 		getCategoryList(){
@@ -295,7 +301,9 @@ export default {
 	line-height: 38px;
 	position: absolute;
 	top: 0;
+	width: auto;
 	right: 0;
+	margin-right: 50%;
 	cursor: pointer;
 }
 
@@ -332,12 +340,16 @@ export default {
 }
 
 .headBox .pcsearchbox .el-input {
-	width: 100%;
+	width: 200px;
+	/* 往右移 */
+	margin-left:1000px;
+	text-align: left;
 }
 
 .headBox .el-input__inner {
 	height: 30px;
 	border: none;
+	width: 100%;
 	background: #fff;
 	/*border: 1px solid #333;*/
 	border-radius: 2px;
@@ -362,7 +374,6 @@ export default {
 .headBox .userInfo a:hover {
 	color: #48456C;
 }
-
 .headBox .nologin {
 	text-align: right;
 }

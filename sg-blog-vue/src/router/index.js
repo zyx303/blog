@@ -67,8 +67,6 @@ export default new Router({
 			},
 			name: 'FriendsLink'
 		}, //友链
-
-
 		{
 			path: '/Login',
 			component: resolve => require(['../pages/Login.vue'], resolve),
