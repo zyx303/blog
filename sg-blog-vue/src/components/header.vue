@@ -90,7 +90,6 @@ export default {
 				this.$store.state.keywords = '';
 				this.$router.push({path:'/'});
 			}else{
-				this.$store.state.keywords = this.input;
 				this.$router.push({path:'/Share?keywords='+this.input});
 			}
 		},
