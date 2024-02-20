@@ -72,6 +72,7 @@
           <el-table-column prop="title" label="标题" align="center" />
           <el-table-column prop="summary" label="摘要" align="center" />
           <el-table-column prop="createTime" label="创建时间" align="center" />
+          <el-table-column prop="status" label="状态(0发布，1隐藏)" align="center" />
 
           <el-table-column
             label="操作"
@@ -92,6 +93,18 @@
                 icon="el-icon-delete"
                 @click="handleDelete(scope.row)"
               >删除</el-button>
+              <el-button
+                size="mini"
+                type="text"
+                icon="el-icon-delete"
+                @click="handleAddArticle(scope.row)"
+              >发布</el-button>
+              <el-button
+                size="mini"
+                type="text"
+                icon="el-icon-delete"
+                @click="handleHide(scope.row)"
+              >隐藏</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -114,7 +127,8 @@
 // import { getToken } from '@/utils/auth'
 import {
   listArticle,
-  delArticle
+  delArticle,
+  updateArticle
 }
 from '@/api/content/article'
 
@@ -186,6 +200,19 @@ export default {
         this.getList()
         this.$modal.msgSuccess('删除成功')
       }).catch(() => {})
+    },
+    /**文章发布 */
+    handleAddArticle(row) {
+      let data = row
+      data.status = 0
+      console.log(data)
+      updateArticle(data)
+    },
+    handleHide(row) {
+      let data = row
+      data.status = 1
+      console.log(data)
+      updateArticle(data)
     }
   }
 }

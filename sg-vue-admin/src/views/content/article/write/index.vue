@@ -44,19 +44,19 @@
             <el-input v-model="form.summary" type="textarea" />
           </el-form-item>
         </el-col>
-         <el-col :span="6">
+         <!-- <el-col :span="6">
           <el-form-item label="允许评论">
             <el-radio-group v-model="form.isComment">
               <el-radio :key="'0'" :label="'0'">正常</el-radio>
               <el-radio :key="'1'" :label="'1'">停用</el-radio>
             </el-radio-group>
           </el-form-item>
-        </el-col>
+        </el-col> -->
         <el-col :span="6">
           <el-form-item label="是否置顶">
             <el-radio-group v-model="form.isTop">
-              <el-radio :key="'0'" :label="'0'">是</el-radio>
-              <el-radio :key="'1'" :label="'1'">否</el-radio>
+              <el-radio :key="'0'" :label="'0'">否</el-radio>
+              <el-radio :key="'1'" :label="'1'">是</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
