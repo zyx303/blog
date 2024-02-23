@@ -1,6 +1,6 @@
 <!-- 文章详情 -->
 <template>
-    <div class = "bg">
+    <div>
         <sg-nav></sg-nav>
         <div  class="container" id="detail">
             <el-row  :gutter="30">
