@@ -1,4 +1,4 @@
-[TOC]
+[地址](http://121.41.83.146:8080/#/)
 
 ## 技术栈
 vue + vuex + element-ui + springboot + mybatisplus + redis + 阿里云oss + mysql	
