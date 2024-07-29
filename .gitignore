@@ -2,3 +2,9 @@
 myblog/blog/src/main/resources/
 
 sg-blog-vue/dist/
+
+sg-blog-vue/blog_dist/
+
+sg-blog-vue/blog_dist1/
+/sg-vue-admin/admin_dist
+/sg-vue-admin/admin_dist1
