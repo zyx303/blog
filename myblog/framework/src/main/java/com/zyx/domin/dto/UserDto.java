@@ -1,4 +1,4 @@
-package com.zyx.domin.entity;
+package com.zyx.domin.dto;
 
 import java.util.Date;
 
