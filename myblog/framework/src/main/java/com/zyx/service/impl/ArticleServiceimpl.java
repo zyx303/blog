@@ -16,6 +16,7 @@ import com.zyx.mapper.ArticleMapper;
 import com.zyx.service.ArticleService;
 import com.zyx.service.CategoryService;
 import com.zyx.utils.BeanCopyUtils;
+import com.zyx.utils.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,9 @@ public class ArticleServiceimpl extends ServiceImpl<ArticleMapper, Article> impl
     @Autowired
     @Lazy
     private CategoryService categoryService;
+
+    @Autowired
+    private RedisCache redisCache;
     @Override
     public ResponseResult hotArticleList() {
         LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
@@ -127,5 +131,11 @@ public class ArticleServiceimpl extends ServiceImpl<ArticleMapper, Article> impl
         //封装pageVo
         PageVo pageVo = new PageVo(articleList,page.getTotal());
         return ResponseResult.okResult(pageVo);
+    }
+
+    @Override
+    public ResponseResult updataViewwCount(Long id) {
+        redisCache.incrementCacheMapValue(SystemConstants.ARTICLE_VIEW_COUNT,id.toString(),1);
+        return ResponseResult.okResult();
     }
 }

@@ -17,4 +17,6 @@ public interface ArticleService extends IService<Article> {
     ResponseResult add(AddArticleDto article);
 
     ResponseResult articleListByTitleAndSummary(Integer pageNum, Integer pageSize, String title, String summary);
+
+    ResponseResult updataViewwCount(Long id);
 }

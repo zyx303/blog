@@ -4,10 +4,7 @@ import com.zyx.domin.ResponseResult;
 import com.zyx.domin.entity.Article;
 import com.zyx.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,6 +38,12 @@ public class ArticleController {
     public ResponseResult getArticleById(@PathVariable("id") Long id) {
         //查询文章
         return articleService.getArticleById(id);
+    }
+
+    @PutMapping("/updateViewCount/{id}")
+    public ResponseResult updataViewwCount(@PathVariable("id") Long id){
+        //更新浏览量
+        return articleService.updataViewwCount(id);
     }
 
 }
