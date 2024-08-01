@@ -56,10 +56,6 @@
         @click.native.prevent="handleLogin"
       >Login</el-button>
 
-      <div class="tips">
-        <span style="margin-right: 20px">userName: sg</span>
-        <span> password: any</span>
-      </div>
     </el-form>
   </div>
 </template>
@@ -86,8 +82,8 @@ export default {
     }
     return {
       loginForm: {
-        userName: 'sg',
-        password: '1234'
+        userName: '',
+        password: ''
       },
       loginRules: {
         userName: [

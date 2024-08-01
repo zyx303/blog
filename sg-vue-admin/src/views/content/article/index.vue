@@ -201,7 +201,7 @@ export default {
         this.$modal.msgSuccess('删除成功')
       }).catch(() => {})
     },
-    /**文章发布 */
+    /** 文章发布 */
     handleAddArticle(row) {
       let data = row
       data.status = 0

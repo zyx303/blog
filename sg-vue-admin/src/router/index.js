@@ -57,6 +57,14 @@ export const constantRoutes = [
       hidden: true
     }]
   },
+  /**
+   * 等价于：{
+        path: '/system/role',
+        component: () => import('@/views/system/role'),
+        name: 'role',
+        hidden: true
+      }
+   */
   {
     path: '/system/user',
     component: Layout,
