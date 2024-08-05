@@ -36,13 +36,12 @@ export function getArticle(articleId) {
     })
 }
 
-// export function updateViewCount(articleId) {
-//     return request({
-//         url: '/article/updateViewCount/' + articleId,
-//         headers: {
-//           isToken: false
-//         },
-//         method: 'put'
-//     })
-    
-// }
+export function updateViewCount(articleId) {
+    return request({
+        url: '/article/updateViewCount/' + articleId,
+        headers: {
+          isToken: false
+        },
+        method: 'put'
+    })
+}
