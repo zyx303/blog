@@ -27,16 +27,16 @@ module.exports = {
         host: '0.0.0.0',
         port: port,
         open: true,
-        proxy: {
-            // detail: https://cli.vuejs.org/config/#devserver-proxy
-            [process.env.VUE_APP_BASE_API]: {
-                target: `http://121.41.83.146:7777`,
-                changeOrigin: true,
-                pathRewrite: {
-                    ['^' + process.env.VUE_APP_BASE_API]: ''
-                }
-            }
-        },
+        // proxy: {
+        //     // detail: https://cli.vuejs.org/config/#devserver-proxy
+        //     [process.env.VUE_APP_BASE_API]: {
+        //         target: `http://121.41.83.146:7777`,
+        //         changeOrigin: true,
+        //         pathRewrite: {
+        //             ['^' + process.env.VUE_APP_BASE_API]: ''
+        //         }
+        //     }
+        // },
         disableHostCheck: true
     },
     configureWebpack: {
