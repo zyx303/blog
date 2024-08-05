@@ -1,7 +1,10 @@
 <!-- 文章列表 -->
 <template>
-    <el-row class="sharelistBox">
-        <el-col :span="24" class="s-item tcommonBox trans" v-for="(item,index) in articleList" :key="'article'+index">
+    <el-row class="sharelistBox" v-loading="loading">
+        <el-col v-if="loading" class="loadingBox">
+        </el-col>
+        <!-- <button @click="toggleLoading" >Toggle Loading {{loading}}</button> -->
+        <el-col :span="24" class="s-item tcommonBox trans" v-for="(item,index) in articleList" :key="'article'+index"  >
             <span class="s-round-date">
                 <span class="month" v-html="showInitDate(item.createTime,'month')+'月'"></span>
                 <span class="day" v-html="showInitDate(item.createTime,'date')"></span>
@@ -58,15 +61,20 @@ import {articleList} from '../api/article'
                     keyword: ''
                 },
                 articleList:[],
-                hasMore:true
+                hasMore:true,
+                loading: true
             }
         },
 
         methods: { //事件处理器
+            // toggleLoading() {
+            //  this.loading = !this.loading;
+            // },
             showInitDate: function(oldDate,full){
                 return initDate(oldDate,full)
             },
             getList(){
+                this.loading = true
                 articleList(this.queryParams).then((response)=>{
                     this.articleList = this.articleList.concat(response.rows)
                     if(response.total<=this.articleList.length){
@@ -75,7 +83,14 @@ import {articleList} from '../api/article'
                         this.hasMore=true
                         this.queryParams.pageNum++
                     }
-                })
+                }).catch((error) => {
+                    console.error('Error fetching articles:', error);
+                }).finally(() => {
+                    this.loading = false;
+                    this.$nextTick(() => {
+                        console.log('Loading status:', this.loading); // 调试信息
+                    });
+                });
             },
             showSearchShowList:function(initData){//展示数据
                 if(initData){
@@ -172,5 +187,12 @@ import {articleList} from '../api/article'
 
     .sharelistBox .viewmore a:hover,.s-item .viewdetail a:hover{
         background: #48456C;
+    }
+
+    .loadingBox{
+        text-align: center;
+        padding: 100px;
+        font-size: 20px;
+        border-radius: 5px;
     }
 </style>
