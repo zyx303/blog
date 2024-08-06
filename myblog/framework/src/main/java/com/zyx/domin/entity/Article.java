@@ -1,9 +1,6 @@
 package com.zyx.domin.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,6 +31,7 @@ public class Article{
 //所属分类id
     private Long categoryId;
 //缩略图
+    @TableField(updateStrategy = FieldStrategy.IGNORED)
     private String thumbnail;
 //是否置顶（0否，1是）
     private String isTop;

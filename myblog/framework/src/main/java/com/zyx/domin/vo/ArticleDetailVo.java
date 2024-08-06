@@ -25,6 +25,8 @@ public class ArticleDetailVo {
     private String content;
     //分类id
     private Long categoryId;
+    //缩略图
+    private String thumbnail;
 
 
 }

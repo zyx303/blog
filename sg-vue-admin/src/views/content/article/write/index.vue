@@ -143,7 +143,9 @@ export default {
     getArticle() {
       getArticle(this.aId).then(response => {
         this.form = response
-        this.fileList.push({ name: '缩略图', url: response.thumbnail })
+        if (response.thumbnail) {
+          this.fileList.push({ name: '缩略图', url: response.thumbnail })
+        }
       })
     },
     handleSave() {
