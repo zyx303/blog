@@ -19,7 +19,7 @@
                     <a :href="'#/Share?classId='+detailObj.categoryId">{{detailObj.categoryName}}</a>
                 </div>
             </header>
-            <div class="article-content markdown-body" v-html="detailObj.content"></div>
+            <div class="article-content markdown-body" v-html="detailObj.content" ref="articleHTML"></div>
 
             <!-- <div class="donate">
                 <div class="donate-word">
@@ -85,19 +85,37 @@ import { mavonEditor } from 'mavon-editor'
                 //获取详情接口
                 this.getArticleDetail()
                 updateViewCount(that.aid)
+            },
+            getToc() {
+              const container = this.$refs.articleHTML;
+              if (container) {
+                const headers = container.querySelectorAll('h1, h2, h3, h4, h5, h6');
+                let toc = Array.from(headers).map(header => {
+                  const id = header.id || header.textContent.trim().toLowerCase().replace(/\s+/g, '-');
+                  header.id = id;
+                  return { id, text: header.textContent , p:header.tagName};
+                });
+                console.log(headers)
+                this.$emit('getToc', toc);
+              }
             }
         },
         watch: {
-           // 如果路由有变化，会再次执行该方法
-           '$route':'routeChange'
+             // 如果路由有变化，会再次执行该方法
+             '$route':'routeChange',
+              detailObj() {
+                this.$nextTick(() => {
+                  this.getToc();
+                });
+              }
          },
         components: { //定义组件
 
         },
         created() { //生命周期函数
-            var that = this;
+              var that = this;
 
-            this.routeChange();
+              this.routeChange();
         },
 
     }
