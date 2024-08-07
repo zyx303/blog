@@ -47,6 +47,8 @@
 import {initDate} from '../utils/server.js'
 import {getArticle,updateViewCount} from '../api/article.js'
 import { mavonEditor } from 'mavon-editor'
+import katex from "katex";
+
     export default {
         data() { //选项 / 数据
             return {
@@ -67,7 +69,15 @@ import { mavonEditor } from 'mavon-editor'
                     this.detailObj = response
                      const markdownIt = mavonEditor.getMarkdownIt()
                     // markdownIt.re
-                    this.detailObj.content = markdownIt.render(response.content);
+                    this.detailObj.content = markdownIt.render(response.content).replace(/\$([^$]+)\$/g, (match, p1) => {
+                      try {
+                        return katex.renderToString(p1, {
+                          throwOnError: false,
+                        });
+                      } catch (error) {
+                        return match;
+                      }
+                    });
                 })
             },
             routeChange:function(){
