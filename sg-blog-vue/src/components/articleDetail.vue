@@ -47,7 +47,9 @@
 import {initDate} from '../utils/server.js'
 import {getArticle,updateViewCount} from '../api/article.js'
 import { mavonEditor } from 'mavon-editor'
-import katex from "katex";
+import katex from "katex"
+import hljs from "highlight.js"
+import 'highlight.js/styles/vs.css'
 
     export default {
         data() { //选项 / 数据
@@ -69,7 +71,9 @@ import katex from "katex";
                     this.detailObj = response
                      const markdownIt = mavonEditor.getMarkdownIt()
                     // markdownIt.re
-                    this.detailObj.content = markdownIt.render(response.content).replace(/\$([^$]+)\$/g, (match, p1) => {
+                    this.detailObj.content = markdownIt.render(response.content)
+                      // latex渲染
+                      .replace(/\$([^$]+)\$/g, (match, p1) => {
                       try {
                         return katex.renderToString(p1, {
                           throwOnError: false,
@@ -77,6 +81,13 @@ import katex from "katex";
                       } catch (error) {
                         return match;
                       }
+                    })
+                }).finally(()=>{
+                    this.$nextTick(() => {
+                      const preEl = document.querySelectorAll('pre')
+                      preEl.forEach((element) => {
+                        hljs.highlightBlock(element)
+                      })
                     });
                 })
             },
