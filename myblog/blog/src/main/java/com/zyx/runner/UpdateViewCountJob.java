@@ -22,7 +22,7 @@ public class UpdateViewCountJob {
     @Autowired
     private ArticleService articleService;
 
-    @Scheduled(cron = "0/5 * * * * ?")
+    @Scheduled(cron = "0 0 * * * ?")
     public void updateViewCount(){
         //获取redis中的浏览量
         Map<String, Integer> viewCountMap = redisCache.getCacheMap(SystemConstants.ARTICLE_VIEW_COUNT);
@@ -30,6 +30,11 @@ public class UpdateViewCountJob {
         List<Article> articles = viewCountMap.entrySet()
                 .stream()
                 .map(entry -> new Article(Long.valueOf(entry.getKey()), entry.getValue().longValue()))
+                .map(article -> {
+                    //thumbnail设置回原来的值
+                    article.setThumbnail(articleService.getById(article.getId()).getThumbnail());
+                    return article;
+                })
                 .collect(Collectors.toList());
         //更新到数据库中
         //如果非空
