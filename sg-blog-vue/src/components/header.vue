@@ -16,24 +16,24 @@
 						<el-menu-item index="/Friendslink"><i class="fa fa-wa fa-users"></i>一些网站</el-menu-item>
 						<!-- 搜索 -->
 						<el-input v-model="input" class="pcsearchbox" placeholder="请输入关键字" @keyup.enter.native="searchChangeFun">
-							<!-- <i slot="prefix" class="el-input__icon el-icon-search pcsearchicon"></i> -->
+							 <i class="el-input__icon el-icon-search"></i>
 						</el-input>
-						<div class="userInfo">
-							<div v-show="!haslogin" class="nologin">
-								<a href="javascript:void(0);" @click="logoinFun(1)">登录&nbsp;</a>|<a href="javascript:void(0);" @click="logoinFun(0)">&nbsp;注册</a>
-							</div>
-							<div v-show="haslogin" class="haslogin">
-								<i class="fa fa-fw fa-user-circle userImg"></i>
-								<ul class="haslogin-info">
-									<li>
-										<a href="#/UserInfo">个人中心</a>
-									</li>
-									<li>
-										<a href="javascript:void(0);" @click="userlogout">退出登录</a>
-									</li>
-								</ul>
-							</div>
-						</div>
+<!--						<div class="userInfo">-->
+<!--							<div v-show="!haslogin" class="nologin">-->
+<!--								<a href="javascript:void(0);" @click="logoinFun(1)">登录&nbsp;</a>|<a href="javascript:void(0);" @click="logoinFun(0)">&nbsp;注册</a>-->
+<!--							</div>-->
+<!--							<div v-show="haslogin" class="haslogin">-->
+<!--								<i class="fa fa-fw fa-user-circle userImg"></i>-->
+<!--								<ul class="haslogin-info">-->
+<!--									<li>-->
+<!--										<a href="#/UserInfo">个人中心</a>-->
+<!--									</li>-->
+<!--									<li>-->
+<!--										<a href="javascript:void(0);" @click="userlogout">退出登录</a>-->
+<!--									</li>-->
+<!--								</ul>-->
+<!--							</div>-->
+<!--						</div>-->
 					</el-menu>
 				</div>
 			</el-col>
@@ -294,16 +294,17 @@ export default {
 
 .headBox .pcsearchbox {
 	padding: 0;
-	max-width: 170px;
+  left: 10%;
 	/*min-width: 30px;*/
 	height: 100%;
+  //margin-left: auto;
 	line-height: 38px;
-	position: absolute;
-	top: 0;
-	width: auto;
-	right: 0;
-	margin-right: 50%;
-	cursor: pointer;
+	//position: absolute;
+	//top: 0;
+	width: 30%;
+	//right: 0;
+	////margin-right: 50%;
+	//cursor: pointer;
 }
 
 .headBox .pcsearchbox:hover .pcsearchinput {
