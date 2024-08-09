@@ -28,7 +28,7 @@ public class ArticleController {
     }
 
     @GetMapping("/articleList")
-    public ResponseResult articleList(Integer pageNum, Integer pageSize, Integer categoryId,String keyword){
+    public ResponseResult articleList(Integer pageNum, Integer pageSize, Long categoryId,String keyword){
         //查询文章
         ResponseResult result =  articleService.articleList(pageNum,pageSize,categoryId,keyword);
         return result;

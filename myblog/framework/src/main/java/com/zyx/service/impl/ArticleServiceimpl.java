@@ -59,12 +59,17 @@ public class ArticleServiceimpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    public ResponseResult articleList(Integer pageNum, Integer pageSize, Integer categoryId, String keyword) {
+    public ResponseResult articleList(Integer pageNum, Integer pageSize, Long categoryId, String keyword) {
         //查询条件
         LambdaQueryWrapper<Article> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         //如果有keyword,模糊查询title以及summary
-        lambdaQueryWrapper.like(Objects.nonNull(keyword),Article::getTitle,keyword)
-                .or().like(Objects.nonNull(keyword),Article::getSummary,keyword);
+        if (Objects.nonNull(keyword)) {
+            lambdaQueryWrapper.and(wrapper ->
+                    wrapper.like(Article::getTitle, keyword)
+                            .or()
+                            .like(Article::getSummary, keyword)
+            );
+        }
         //如果有categoryId,查询时和传入相同
         lambdaQueryWrapper.eq(Objects.nonNull(categoryId)&&categoryId>0,Article::getCategoryId,categoryId);
         //状态必须是正式发布的

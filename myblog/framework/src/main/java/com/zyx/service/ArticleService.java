@@ -10,7 +10,7 @@ public interface ArticleService extends IService<Article> {
 
     ResponseResult hotArticleList();
 
-    ResponseResult articleList(Integer pageNum, Integer pageSize, Integer categoryId, String keyword);
+    ResponseResult articleList(Integer pageNum, Integer pageSize, Long categoryId, String keyword);
 
     ResponseResult getArticleById(Long id);
 
