@@ -72,4 +72,7 @@ import articleMenu  from "../components/articleMenu.vue";
   margin-top: 20px;
   padding:0 10px;
 }
+.katex-html {
+  display: none;
+}
 </style>

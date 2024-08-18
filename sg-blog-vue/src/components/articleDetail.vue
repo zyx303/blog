@@ -69,20 +69,24 @@ import 'highlight.js/styles/vs.css'
             getArticleDetail:function(){
                 getArticle(this.aid).then((response)=>{
                     this.detailObj = response
-                     const markdownIt = mavonEditor.getMarkdownIt()
+                    const markdownIt = mavonEditor.getMarkdownIt()
+                    // console.log(markdownIt.render(response.content))
                     // markdownIt.re
                     this.detailObj.content = markdownIt.render(response.content)
                       // latex渲染
                       .replace(/\$([^$]+)\$/g, (match, p1) => {
                       try {
+                        // console.log(p1)
                         return katex.renderToString(p1, {
                           throwOnError: false,
+                          // output: 'html'  // Only output HTML, no MathML
                         });
                       } catch (error) {
                         return match;
                       }
                     })
                 }).finally(()=>{
+                  //  代码高亮
                     this.$nextTick(() => {
                       const preEl = document.querySelectorAll('pre')
                       preEl.forEach((element) => {
