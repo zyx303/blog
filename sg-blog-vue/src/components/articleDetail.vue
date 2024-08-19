@@ -49,7 +49,7 @@ import {getArticle,updateViewCount} from '../api/article.js'
 import { mavonEditor } from 'mavon-editor'
 import katex from "katex"
 import hljs from "highlight.js"
-import 'highlight.js/styles/vs.css'
+import 'highlight.js/styles/github.css'
 
     export default {
         data() { //选项 / 数据
@@ -88,10 +88,20 @@ import 'highlight.js/styles/vs.css'
                 }).finally(()=>{
                   //  代码高亮
                     this.$nextTick(() => {
-                      const preEl = document.querySelectorAll('pre')
+                      let preEl = document.querySelectorAll('pre');
                       preEl.forEach((element) => {
-                        hljs.highlightBlock(element)
-                      })
+                        //把lang-换成language-
+                        // element.className = element.className.replace('lang-', 'language-')
+                        let codeEl = element.querySelector('code');
+                        // if (codeEl) {
+                        //   codeEl.className = codeEl.className.replace('lang-', 'language-');
+                        // }
+                        hljs.highlightElement(codeEl)
+                      });
+                      // console.log(preEl)
+                    //   preEl.forEach((element) => {
+                    //     hljs.highlightElement(element)
+                    //   })
                     });
                 })
             },

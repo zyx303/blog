@@ -4,7 +4,7 @@
         <sg-nav></sg-nav>
         <div  class="article-container" id="detail">
             <el-row  :gutter="30">
-                <sg-article-menu :toc="toc"></sg-article-menu>
+                <sg-article-menu :toc="toc" v-if="toc.length > 0"></sg-article-menu>
                 <el-col :sm="24" :md="18" style="transition:all .5s ease-out;margin-bottom:30px;">
                     <sg-articleDetail @getToc="getToc"></sg-articleDetail>
                     <!-- <sg-message></sg-message> -->
@@ -28,7 +28,7 @@ import articleMenu  from "../components/articleMenu.vue";
         name:'DetailShare',
         data() { //选项 / 数据
             return {
-              toc:''
+              toc: Array
             }
         },
         methods: { //事件处理器
