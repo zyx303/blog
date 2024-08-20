@@ -61,7 +61,7 @@
       <el-table-column label="分类名" align="center" prop="name" />
       <el-table-column label="描述" align="center" prop="description" />
       <el-table-column prop="status" label="状态" align="center">
-        <template slot-scope="scope">
+        <template v-slot="scope">
           <el-switch
             v-model="scope.row.status"
             active-value="0"
@@ -71,7 +71,7 @@
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
-        <template slot-scope="scope">
+        <template v-slot="scope">
           <el-button
             size="mini"
             type="text"
@@ -158,10 +158,12 @@ export default {
         description: null,
         metaKeywords: null,
         metaDescription: null,
-        status: undefined
+        status: '0'
       },
       // 表单参数
-      form: {},
+      form: {
+        status: '0'
+      },
       // 表单校验
       rules: {
       }
@@ -194,7 +196,7 @@ export default {
         description: null,
         metaKeywords: null,
         metaDescription: null,
-        status: 0,
+        status: '0',
         createBy: null,
         createTime: null,
         updateBy: null,
@@ -254,6 +256,14 @@ export default {
           }
         }
       })
+    },
+    /** 状态切换 */
+    handleStatusChange(row) {
+      console.log(row.status)
+      updateCategory(row).then(() => {
+        this.$modal.msgSuccess('修改成功')
+      })
+      console.log(row.status)
     },
     /** 删除按钮操作 */
     handleDelete(row) {

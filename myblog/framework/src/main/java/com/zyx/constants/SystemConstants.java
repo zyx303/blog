@@ -17,7 +17,7 @@ public class SystemConstants
     public static final String BUTTON ="F";
 
         
-    public static final String NORMAL = "0";
+    public static final char NORMAL = '0';
     public static final String LINK_STATUS_NORMAL = "0";
     public static final String ARTICLE_IS_TOP = "1";
     public static final String ARTICLE_VIEW_COUNT = "article:viewCount";

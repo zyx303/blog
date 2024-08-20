@@ -114,7 +114,7 @@ export default {
       form: {
         title: '',
         thumbnail: '',
-        isTop: '1',
+        isTop: '0',
         isComment: '0',
         content: ''
       },
