@@ -30,16 +30,18 @@ export default {
         <a :href="'#' + item.id">{{ item.text }}</a>
       </li>
     </ul>
-<!--    {{content}}-->
+    <!--    {{content}}-->
   </div>
 </template>
 
 <style scoped>
 .toc-container {
+  overflow-y: auto; /* 启用垂直滚动条 */
+  max-height: 500px; /* 设置最大高度，可以根据需要调整 */
   position: fixed;
   top: 30%;
   left: 10px;
-  width: 150px;
+  width: 12%;
   background: #f9f9f9;
   border: 1px solid #ddd;
   padding: 10px;
