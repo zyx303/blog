@@ -61,18 +61,30 @@ export default {
 
 .toc-container li.h1 {
   font-weight: bold;
-  font-size: 1.2em;
+  font-size: 1.3em;
   margin-left: 0;
 }
 
 .toc-container li.h2 {
+  font-weight: bolder;
+  font-size: 1.1em;
   margin-left: 10px;
 }
 
+.toc-container li.h3 {
+  font-weight: normal;
+  margin-left: 15px;
+}
+
 .toc-container li.h4 {
+  font-weight: lighter;
   margin-left: 20px;
 }
 
+.toc-container li.h5 {
+  font-weight: lighter;
+  margin-left: 30px;
+}
 .toc-container a {
   text-decoration: none;
   color: #333;
