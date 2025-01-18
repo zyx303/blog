@@ -53,62 +53,59 @@ content {
 
 /* 人物背景图片（右下角显示） */
 
-/* @media only screen and (min-width: 1600px) {
-    @media only screen and (min-width: 1800px) {
+
+/* @media only screen and (min-width: 1600px){
+    @media only screen and (min-width: 1800px){
         body:not(.typora-sourceview-on) content {
             background: var(--bgimg-url) no-repeat;
-            background-size: 12%;
+            background-size : 12%;
             background-position: 86% 100%;
         }
     }
-    @media only screen and (max-width: 1800px) {
+    @media only screen and (max-width: 1800px){
         body:not(.pin-outline, .typora-sourceview-on) content {
             background: var(--bgimg-url) no-repeat;
-            background-size: 12%;
+            background-size : 12%;
             background-position: 86% 100%;
         }
     }
-} */
-
+    /*效仿https://github.com/Soanguy/typora-theme-autumnus，取消下面注释，并注释上面即可，换个背景（透明）风格*/
+    /*body:not(.typora-sourceview-on) content {
+        background: var(--bgimg-url) no-repeat;
+        background-size : 30%;
+        background-position: center 10%;
+    }
+    #write {
+        backdrop-filter: blur(15px);
+        max-width: 950px;
+        padding: 50px;
+        border: 1px dashed #d0d5d7;
+        border-radius: 4px;
+        margin: 470px auto 20px;
+    }
+    #write *:not(font,span) {
+        background: transparent !important;
+    }
+    #write table *, #write blockquote, #write pre, #write details, #write details * {
+        background: transparent !important;
+    }
+    #write details, #write details summary {
+        border-color: #d0d5d7 !important;
+    }
+    #write a:not([alt="null"], .md-toc-inner):hover {
+        background-color:gray !important;
+    }
+    .mathjax-block:hover .md-rawblock-container,
+    .mathjax-block:hover .md-rawblock-tooltip,
+    .md-htmlblock:hover .md-rawblock-container,
+    .md-htmlblock:hover .md-rawblock-tooltip {
+        background-color: rgba(0,0,0,0) !important;
+    }
+}
 content #md-searchpanel {
     background: var(--bg-color);
 }
-
-/* 效仿https://github.com/Soanguy/typora-theme-autumnus，取消下面注释，并注释上面即可，换个背景（透明）风格 */
-/*
-body:not(.typora-sourceview-on) content {
-    background: var(--bgimg-url) no-repeat;
-    background-size: 30%;
-    background-position: center 10%;
-}
-#write {
-    backdrop-filter: blur(15px);
-    max-width: 950px;
-    padding: 50px;
-    border: 1px dashed #d0d5d7;
-    border-radius: 4px;
-    margin: 470px auto 20px;
-}
-#write *:not(font,span) {
-    background: transparent !important;
-}
-#write table *, #write blockquote, #write pre, #write details, #write details * {
-    background: transparent !important;
-}
-#write details, #write details summary {
-    border-color: #d0d5d7 !important;
-}
-#write a:not([alt="null"], .md-toc-inner):hover {
-    background-color:gray !important;
-}
-.mathjax-block:hover .md-rawblock-container,
-.mathjax-block:hover .md-rawblock-tooltip,
-.md-htmlblock:hover .md-rawblock-container,
-.md-htmlblock:hover .md-rawblock-tooltip {
-    background-color: rgba(0,0,0,0) !important;
-}
 */
-
 /*
 @media only screen and (min-width: 1400px) {
 	#write {
@@ -892,7 +889,6 @@ hr {
 }
 
 .md-task-list-item.task-list-done {
-    text-decoration: line-through;
     color: #999;
 }
 .md-task-list-item.task-list-done span {
@@ -1144,6 +1140,14 @@ footer {
     body {
         font-family: Times, 'SimSun', serif!important;
         color: #000000!important;
+        max-width: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    #write {
+        max-width: 95% !important;
+        margin: 0 auto !important;
+        padding: 20px 30px !important;
     }
     p {
         color: #000000!important;
@@ -1610,4 +1614,43 @@ kbd {
     background: var(--bg-color);
     color: var(--body-color);
     border-radius: 5px;
+}
+
+/** 警告提示块样式 **/
+.md-alert.warning, .md-alert-warning {
+    border-left: 5px solid var(--blockquotewarnicon-color);
+    padding: 10px 15px;
+    color: #3f3f3f;
+    background-color: var(--blockquotewarnbg-color);
+    border-radius: 3px;
+    position: relative;
+}
+
+/* 隐藏 warning 文本 */
+.md-alert-text-warning {
+    display: none;
+}
+
+/* 移除空行 */
+.md-alert.warning p, .md-alert-warning p {
+    margin: 0;
+}
+
+.md-alert.warning br, .md-alert-warning br {
+    display: none;
+}
+
+/* .md-alert.warning>*, .md-alert-warning>* {
+    margin-left: 2rem !important;
+} */
+
+.md-alert.warning::before, .md-alert-warning::before {
+    content: '\e8c7';
+    font-family: "iconfont";
+    color: var(--blockquotewarnicon-color);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: large;
+    font-weight: 600;
 }

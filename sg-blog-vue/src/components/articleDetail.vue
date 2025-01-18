@@ -69,18 +69,72 @@ import 'highlight.js/styles/github.css'
             getArticleDetail:function(){
                 getArticle(this.aid).then((response)=>{
                     this.detailObj = response
+                    let content = response.content
+                    
+                    // 1. 先处理数学公式
+                    content = content.replace(/\$\$([\s\S]+?)\$\$/g, (match, p1) => {
+                      try {
+                        return katex.renderToString(p1.trim(), {
+                          displayMode: true,
+                          throwOnError: false,
+                          strict: false
+                        });
+                      } catch (error) {
+                        console.error('KaTeX block error:', error);
+                        return match;
+                      }
+                    })
+                    content = content.replace(/\$([^\n$]+?)\$/g, (match, p1) => {
+                      try {
+                        return katex.renderToString(p1.trim(), {
+                          displayMode: false,
+                          throwOnError: false,
+                          strict: false
+                        });
+                      } catch (error) {
+                        console.error('KaTeX inline error:', error);
+                        return match;
+                      }
+                    })
+                    
+                    // 1.5 处理警告提示块
+                    content = content.replace(/^>\s*\[!warning\]\s*\n((?:>[^\n]*\n?)*)/gm, (match, p1) => {
+                      // 移除每行开头的 > 符号并合并内容
+                      const warningContent = p1.replace(/^>\s?/gm, '').trim();
+                      return `<div class="md-alert warning">${warningContent}</div>`;
+                    });
+                    
+                    // 2. 进行 Markdown 渲染
                     const markdownIt = mavonEditor.getMarkdownIt()
-                    let content = markdownIt.render(response.content)
-                      // latex渲染
-                      .replace(/\$([^$]+)\$/g, (match, p1) => {
-                        try {
-                          return katex.renderToString(p1, {
-                            throwOnError: false,
-                          });
-                        } catch (error) {
-                          return match;
+                    // 配置 markdown-it
+                    markdownIt.set({
+                      html: true,
+                      breaks: true,
+                      typographer: true
+                    })
+                    
+                    // 修改 markdown-it 的内联规则
+                    const inlineRules = markdownIt.inline.ruler.__rules__;
+                    const emphasisRule = inlineRules.find(rule => rule.name === 'emphasis');
+                    if (emphasisRule) {
+                      // 保存原始的 emphasis 规则
+                      const originalEmphasisFunc = emphasisRule.fn;
+                      // 修改规则，只处理星号
+                      emphasisRule.fn = function(state, silent) {
+                        const start = state.pos;
+                        const marker = state.src.charCodeAt(start);
+                        
+                        // 只处理星号 (ascii 42)，跳过下划线 (ascii 95)
+                        if (marker === 95) { // 下划线
+                          return false;
                         }
-                      })
+                        
+                        // 对于星号，使用原始规则
+                        return originalEmphasisFunc.call(this, state, silent);
+                      };
+                    }
+                    
+                    content = markdownIt.render(content)
                     
                     // 处理图片，确保被p标签包裹
                     content = content.replace(/<img([^>]*)>/g, (match, p1) => {
@@ -100,8 +154,26 @@ import 'highlight.js/styles/github.css'
 
                     this.detailObj.content = content;
                 }).finally(()=>{
-                  //  代码高亮
+                    //  DOM 更新后的处理
                     this.$nextTick(() => {
+                      // 1. 过滤 katex 标签
+                      const katexElements = document.querySelectorAll('span.katex');
+                      katexElements.forEach((katexEl, index) => {
+                        console.log(`\n处理第 ${index + 1} 个 katex 标签:`, katexEl.outerHTML);
+                        
+                        // 查找 katex-mathml 和 math 标签
+                        const mathmlEl = katexEl.querySelector('span.katex-mathml');
+                        if (mathmlEl) {
+                          const mathEl = mathmlEl.querySelector('math');
+                          if (mathEl) {
+                            // 保留 katex-mathml 和 math，移除其他内容
+                            katexEl.innerHTML = `<span class="katex-mathml">${mathEl.outerHTML}</span>`;
+                            console.log('处理后:', katexEl.outerHTML);
+                          }
+                        }
+                      });
+                      
+                      // 2. 代码高亮
                       let preEl = document.querySelectorAll('pre');
                       preEl.forEach((element) => {
                         let codeEl = element.querySelector('code');
@@ -135,7 +207,6 @@ import 'highlight.js/styles/github.css'
                   header.id = id;
                   return { id, text: header.textContent , p:header.tagName};
                 });
-                console.log(headers)
                 this.$emit('getToc', toc);
               }
             }
@@ -169,19 +240,16 @@ import 'highlight.js/styles/github.css'
     white-space: normal;
     word-wrap: break-word;
     word-break: break-all;
-    overflow-x: hidden;
 }
 .detailBox .article-content p{
     margin:10px 0;
     line-height:24px;
     word-wrap: break-word;
     word-break: break-all;
-    overflow-x: hidden;
 }
 .detailBox .article-content pre{
     word-wrap: break-word;
     word-break: break-all;
-    overflow-x: hidden;
 }
 .detailBox .article-content img{
     max-width: 100%!important;
@@ -357,6 +425,21 @@ import 'highlight.js/styles/github.css'
   word-wrap: break-word;
   padding: 45px;
   font-size: 16px;
+}
+
+/* 警告提示块样式 */
+.markdown-body .md-alert.warning {
+  padding: 1em 1em 1em 3em;
+  margin: 1em 0;
+  text-align: justify;
+}
+
+.markdown-body .md-alert.warning::before {
+  left: 1em;
+}
+
+.markdown-body .md-alert.warning p {
+  margin: 0.5em 0;
 }
 
 .markdown-body pre,
