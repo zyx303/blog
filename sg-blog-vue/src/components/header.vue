@@ -5,36 +5,49 @@
 		<el-row class="container">
 			<el-col :span="24">
 				<!-- pc端导航 -->
-				<div class="headBox">
+				<div class="headBox pc-nav">
 					<el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" :router="true">
 						<el-menu-item index="/Home"><i class="fa fa-wa fa-home"></i> 首页</el-menu-item>
 						<el-submenu index="/Share">
 							<template slot="title"><i class="fa fa-wa fa-archive"></i> 分类</template>
 							<el-menu-item v-for="(item,index) in classListObj" :key="'class1'+index" :index="'/Share?classId='+item.id">{{item.name}}</el-menu-item>
 						</el-submenu>
-						<!-- <el-menu-item index="/Reward"><i class="fa fa-wa fa-cny"></i> 赞赏</el-menu-item> -->
 						<el-menu-item index="/Friendslink"><i class="fa fa-wa fa-users"></i>一些网站</el-menu-item>
 						<!-- 搜索 -->
 						<el-input v-model="input" class="pcsearchbox" placeholder="请输入关键字" @keyup.enter.native="searchChangeFun">
 							 <i class="el-input__icon el-icon-search"></i>
 						</el-input>
-<!--						<div class="userInfo">-->
-<!--							<div v-show="!haslogin" class="nologin">-->
-<!--								<a href="javascript:void(0);" @click="logoinFun(1)">登录&nbsp;</a>|<a href="javascript:void(0);" @click="logoinFun(0)">&nbsp;注册</a>-->
-<!--							</div>-->
-<!--							<div v-show="haslogin" class="haslogin">-->
-<!--								<i class="fa fa-fw fa-user-circle userImg"></i>-->
-<!--								<ul class="haslogin-info">-->
-<!--									<li>-->
-<!--										<a href="#/UserInfo">个人中心</a>-->
-<!--									</li>-->
-<!--									<li>-->
-<!--										<a href="javascript:void(0);" @click="userlogout">退出登录</a>-->
-<!--									</li>-->
-<!--								</ul>-->
-<!--							</div>-->
-<!--						</div>-->
 					</el-menu>
+				</div>
+				<!-- 移动端导航 -->
+				<div class="mobile-nav">
+					<div class="mobile-nav-header">
+						<i class="el-icon-menu" @click="toggleMobileMenu"></i>
+						<el-input v-model="input" class="mobile-searchbox" placeholder="搜索" @keyup.enter.native="searchChangeFun">
+							<i slot="prefix" class="el-input__icon el-icon-search"></i>
+						</el-input>
+					</div>
+					<transition name="slide-fade">
+						<div class="mobile-menu" v-show="!pMenu">
+							<el-menu :default-active="activeIndex" class="el-menu-vertical" @select="handleSelect" :router="true">
+								<el-menu-item index="/Home">
+									<i class="fa fa-wa fa-home"></i>
+									<span>首页</span>
+								</el-menu-item>
+								<el-submenu index="/Share">
+									<template slot="title">
+										<i class="fa fa-wa fa-archive"></i>
+										<span>分类</span>
+									</template>
+									<el-menu-item v-for="(item,index) in classListObj" :key="'class2'+index" :index="'/Share?classId='+item.id">{{item.name}}</el-menu-item>
+								</el-submenu>
+								<el-menu-item index="/Friendslink">
+									<i class="fa fa-wa fa-users"></i>
+									<span>一些网站</span>
+								</el-menu-item>
+							</el-menu>
+						</div>
+					</transition>
 				</div>
 			</el-col>
 		</el-row>
@@ -165,6 +178,9 @@ export default {
 				this.input = '';
 				this.$store.state.keywords = '';
 			}
+		},
+		toggleMobileMenu() {
+			this.pMenu = !this.pMenu;
 		}
 	},
 	components: { //定义组件
@@ -623,6 +639,100 @@ export default {
 	}
 	50% {
 		opacity: 0;
+	}
+}
+
+/* 移动端样式 */
+@media screen and (max-width: 768px) {
+	.pc-nav {
+		display: none;
+	}
+	
+	.mobile-nav {
+		display: block;
+	}
+	
+	.mobile-nav-header {
+		height: 38px;
+		display: flex;
+		align-items: center;
+		padding: 0 15px;
+	}
+	
+	.mobile-nav-header .el-icon-menu {
+		font-size: 24px;
+		color: #fff;
+		margin-right: 15px;
+		cursor: pointer;
+	}
+	
+	.mobile-searchbox {
+		flex: 1;
+	}
+	
+	.mobile-searchbox .el-input__inner {
+		height: 30px;
+		border: none;
+		background: rgba(255, 255, 255, 0.9);
+		border-radius: 4px;
+	}
+	
+	.mobile-menu {
+		position: fixed;
+		top: 38px;
+		left: 0;
+		width: 80%;
+		height: calc(100vh - 38px);
+		background: rgba(40, 42, 44, 0.95);
+		z-index: 999;
+		overflow-y: auto;
+	}
+	
+	.mobile-menu .el-menu {
+		border-right: none;
+		background: transparent;
+	}
+	
+	.mobile-menu .el-menu-item,
+	.mobile-menu .el-submenu__title {
+		color: #fff;
+		height: 50px;
+		line-height: 50px;
+	}
+	
+	.mobile-menu .el-menu-item.is-active {
+		background: rgba(73, 69, 107, 0.7);
+	}
+	
+	.mobile-menu .el-submenu .el-menu {
+		background: rgba(73, 69, 107, 0.3);
+	}
+	
+	.mobile-menu .el-menu-item:hover,
+	.mobile-menu .el-submenu__title:hover {
+		background: rgba(73, 69, 107, 0.5);
+	}
+}
+
+/* 动画效果 */
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+	transition: all 0.3s ease;
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to {
+	transform: translateX(-100%);
+	opacity: 0;
+}
+
+@media screen and (min-width: 769px) {
+	.mobile-nav {
+		display: none;
+	}
+	
+	.pc-nav {
+		display: block;
 	}
 }
 </style>

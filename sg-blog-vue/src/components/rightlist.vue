@@ -171,6 +171,14 @@ export default {
 .rightlistBox {
   position: relative;
 }
+
+/* 移动端隐藏右侧栏 */
+@media screen and (max-width: 768px) {
+  .rightlistBox {
+    display: none;
+  }
+}
+
 .rightlistBox section {
   transition: all 0.2s linear;
   position: relative;
