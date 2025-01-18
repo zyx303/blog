@@ -1,15 +1,20 @@
-<script>
+<template>
+  <div class="article-menu">
+    <ul>
+      <li v-for="item in toc" :key="item.id" :class="item.p.toLowerCase()">
+        <a @click.prevent="scrollTo(item.id)">{{ item.text }}</a>
+      </li>
+    </ul>
+  </div>
+</template>
 
+<script>
 export default {
   name: "articleMenu",
-  data() {
-    return {
-    };
-  },
   props: {
     toc: {
       type: Array,
-      required:true
+      required: true
     }
   },
   methods: {
@@ -23,74 +28,102 @@ export default {
 }
 </script>
 
-<template>
-  <div class="toc-container">
-    <ul>
-      <li v-for="item in toc" :key="item.id" :class="item.p.toLowerCase()">
-        <a :href="'#' + item.id">{{ item.text }}</a>
-      </li>
-    </ul>
-    <!--    {{content}}-->
-  </div>
-</template>
-
 <style scoped>
-.toc-container {
-  overflow-y: auto; /* 启用垂直滚动条 */
-  max-height: 500px; /* 设置最大高度，可以根据需要调整 */
-  position: fixed;
-  top: 30%;
-  left: 10px;
-  width: 12%;
-  background: #f9f9f9;
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.article-menu {
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
-.toc-container ul {
+.article-menu::-webkit-scrollbar {
+  width: 4px;
+}
+
+.article-menu::-webkit-scrollbar-thumb {
+  background: rgba(144, 147, 153, 0.3);
+  border-radius: 4px;
+}
+
+.article-menu::-webkit-scrollbar-thumb:hover {
+  background: rgba(144, 147, 153, 0.5);
+}
+
+.article-menu ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.toc-container li {
-  margin: 5px 0;
+.article-menu li {
+  padding: 4px 0;
+  line-height: 1.5;
 }
 
-.toc-container li.h1 {
-  font-weight: bold;
-  font-size: 1.3em;
+.article-menu li a {
+  display: block;
+  color: #606266;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  opacity: 0.9;
+}
+
+.article-menu li a:hover {
+  color: #409EFF;
+  background-color: #ecf5ff;
+  padding-left: 16px;
+  opacity: 1;
+}
+
+.article-menu li.h1 {
+  font-weight: 600;
   margin-left: 0;
 }
 
-.toc-container li.h2 {
-  font-weight: bolder;
-  font-size: 1.1em;
-  margin-left: 10px;
+.article-menu li.h1 a {
+  font-size: 15px;
+  color: #303133;
 }
 
-.toc-container li.h3 {
+.article-menu li.h2 {
+  font-weight: 500;
+  margin-left: 12px;
+}
+
+.article-menu li.h2 a {
+  color: #606266;
+}
+
+.article-menu li.h3 {
   font-weight: normal;
-  margin-left: 15px;
+  margin-left: 24px;
 }
 
-.toc-container li.h4 {
-  font-weight: lighter;
-  margin-left: 20px;
+.article-menu li.h3 a {
+  color: #909399;
+  font-size: 13px;
 }
 
-.toc-container li.h5 {
-  font-weight: lighter;
-  margin-left: 30px;
-}
-.toc-container a {
-  text-decoration: none;
-  color: #333;
+.article-menu li.h4 {
+  margin-left: 36px;
 }
 
-.toc-container a:hover {
-  text-decoration: underline;
+.article-menu li.h4 a {
+  color: #909399;
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.article-menu li.h5 {
+  margin-left: 48px;
+}
+
+.article-menu li.h5 a {
+  color: #909399;
+  font-size: 12px;
+  opacity: 0.8;
 }
 </style>
