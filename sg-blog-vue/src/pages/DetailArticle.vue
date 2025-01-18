@@ -134,16 +134,11 @@ export default {
 
 @media screen and (max-width: 768px) {
     .article-menu-wrapper {
-        width: 260px;
-        left: -260px;
+        display: none;
     }
     
-    .article-menu-wrapper .article-menu {
-        background-color: rgba(245, 247, 250, 0.95);
-    }
-    
-    .menu-show + .menu-trigger {
-        left: 260px;
+    .menu-trigger {
+        display: none;
     }
     
     .article-container {
