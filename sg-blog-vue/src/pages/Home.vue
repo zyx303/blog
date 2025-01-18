@@ -44,6 +44,10 @@ import rightlist from '../components/rightlist.vue'
 .home {
   background-image: url('../../static/img/keduoli.jpg');
   background-size: cover;  /* 让背景图片覆盖整个元素 */
-  background-position: center;  /* 让背景图片居中显示 */
+  background-repeat: no-repeat;  /* 防止背景图片重复 */
+  background-attachment: fixed;  /* 使背景图片固定，不随页面滚动 */
+  min-height: 100vh;  /* 确保背景至少占满整个视口高度 */
+  width: 100%;  /* 确保宽度占满 */
+  position: relative;  /* 建立定位上下文 */
 }
 </style>
